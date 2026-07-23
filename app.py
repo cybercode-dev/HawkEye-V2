@@ -10,7 +10,7 @@ import os
 import uuid
 import datetime
 import logging
-
+from zoneinfo import ZoneInfo
 from flask import (
     Flask, render_template, request, redirect, url_for, flash,
     send_file, abort, session, jsonify
@@ -161,7 +161,9 @@ def upload():
             logger.exception("Legacy analyzer failed; continuing with SIEM engine summary")
 
     result["filename"] = filename
-    result["analysis_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    result["analysis_time"] = datetime.datetime.now(
+    ZoneInfo("Asia/Kolkata")
+).strftime("%Y-%m-%d %H:%M:%S IST")
 
     # Enrich the top suspicious IPs with country/city/ISP info. Never let a
     # geolocation hiccup break the report — enrich_ips_with_geo always

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HawkEye | AI Security Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="logo-area">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HawkEye Logo" class="logo">
+        </div>
+        <h1>🤖 HawkEye AI Copilot</h1>
+
+<p class="subtitle">
+Real-Time Security Assistant • Mini SIEM • MITRE ATT&CK
+</p>
+    </div>
+
+    <div class="analysis">
+        {% if result %}
+        <p>Currently discussing: <strong>{{ result.filename }}</strong>
+            ({{ result.alert_count }} alerts, risk: <span class="{{ result.risk_class }}">{{ result.risk }}</span>)</p>
+        {% else %}
+        <p class="chart-caption">No scan is loaded yet — <a href="/">analyze a log file</a> first, or pick a past scan below.</p>
+        {% endif %}
+
+        {% if recent_scans %}
+        <form method="get" action="{{ url_for('assistant_page') }}" style="margin-top:10px;">
+            <select name="report_id" onchange="this.form.submit()" style="padding:10px;border-radius:8px;background:#0f172a;color:#fff;border:1px solid #334155;">
+                <option value="">— choose a scan —</option>
+                {% for scan in recent_scans %}
+                <option value="{{ scan.report_id }}" {{ 'selected' if scan.report_id == report_id else '' }}>
+                    {{ scan.analysis_time }} — {{ scan.filename }} ({{ scan.risk }})
+                </option>
+                {% endfor %}
+            </select>
+        </form>
+        {% endif %}
+    </div>
+    <div class="analysis">
+        <div id="chatWindow" class="analysis chat-window" style="min-height:280px; max-height:480px; overflow-y:auto; display:flex; flex-direction:column; gap:14px; padding:6px;">
+            <div class="chat-bubble chat-bot">
+                Hi, I'm HawkEye's Security Assistant. Ask me things like <em>"why is this high risk?"</em>,
+                <em>"how do I fix this attack?"</em>, <em>"explain this IP"</em>, or <em>"explain MITRE"</em>.
+            </div>
+        </div>
+        <div class="quick-prompts">
+    
+    <button onclick="input.value='Summarize this incident'">📄 Summary</button>
+    
+    <button onclick="input.value='Explain MITRE mapping'">🗺 MITRE</button>
+    
+    <button onclick="input.value='Explain IOC details'">🎯 IOC</button>
+    
+    <button onclick="input.value='Recommend remediation'">🛡 Fix</button>
+    
+    </div>
+        <div class="chat-input-row">
+            <input
+type="text"
+id="questionInput"
+class="chat-input-box"
+placeholder="Ask HawkEye AI Copilot about this scan..."
+style="flex:1;">
+            <button id="sendBtn" class="ai-btn-small">
+🚀 Send
+</button>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <a href="/" class="download-btn secondary-btn">🔄 Analyze a Log</a>
+        <a href="{{ url_for('view_history') }}" class="download-btn secondary-btn">🕓 Scan History</a>
+        <a href="{{ url_for('mitre_explorer') }}" class="download-btn secondary-btn">🗺️ MITRE Explorer</a>
+    </div>
+
+    <div class="footer">
+        © 2026 HawkEye | Developed by Devansh
+    </div>
+</div>
+
+<script>
+const reportId = {{ (report_id or '') | tojson }};
+const chatWindow = document.getElementById('chatWindow');
+const input = document.getElementById('questionInput');
+const sendBtn = document.getElementById('sendBtn');
+
+function addBubble(text, who) {
+    const div = document.createElement('div');
+    div.className = 'chat-bubble chat-' + who;
+    div.innerText = text;
+    chatWindow.appendChild(div);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+async function sendQuestion() {
+    const question = input.value.trim();
+    if (!question) return;
+    addBubble(question, 'user');
+    input.value = '';
+    sendBtn.disabled = true;
+    addBubble('Thinking...', 'bot-loading');
+
+    try {
+        const resp = await fetch('/assistant/ask', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({question: question, report_id: reportId})
+        });
+        const data = await resp.json();
+        chatWindow.removeChild(chatWindow.lastChild);
+        addBubble(data.answer, 'bot');
+    } catch (e) {
+        chatWindow.removeChild(chatWindow.lastChild);
+        addBubble('Something went wrong reaching the assistant. Please try again.', 'bot');
+    } finally {
+        sendBtn.disabled = false;
+    }
+}
+
+sendBtn.addEventListener('click', sendQuestion);
+input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuestion(); });
+</script>
+
+</body>
+</html>

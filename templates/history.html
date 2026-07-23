@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HawkEye | Scan History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="logo-area">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HawkEye Logo" class="logo">
+        </div>
+        <h1>Scan History</h1>
+        <p class="subtitle">Your last {{ scans|length }} log analyses</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-wrap">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">
+                        <span class="flash-icon">{{ '⚠️' if category == 'error' else '✅' }}</span>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="analysis">
+        {% if scans %}
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>File</th>
+                <th>Failed / Total</th>
+                <th>Top IP</th>
+                <th>Brute Force</th>
+                <th>Threat Score</th>
+                <th>Risk</th>
+                <th>Report</th>
+            </tr>
+            {% for scan in scans %}
+            <tr>
+                <td>{{ scan.analysis_time }}</td>
+                <td>{{ scan.filename }}</td>
+                <td>{{ scan.failed }} / {{ scan.total }}</td>
+                <td>{{ scan.top_ip }}</td>
+                <td>{{ scan.brute_force }}</td>
+                <td>{{ scan.threat_score }}/100</td>
+                <td><span class="{{ scan.risk_class }}">{{ scan.risk }}</span></td>
+                <td><a href="{{ url_for('view_past_report', report_id=scan.report_id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p style="text-align:center; color:#94a3b8; padding:20px 0;">
+            No scans yet. Analyze a log file to see it show up here.
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="action-bar">
+        <a href="/" class="download-btn secondary-btn">🔄 Analyze a Log</a>
+        {% if scans %}
+        <form action="{{ url_for('clear_history') }}" method="POST" onsubmit="return confirm('Clear all scan history? This cannot be undone.');" style="display:inline;">
+            <button type="submit" class="secondary-btn" style="background:#dc2626 !important;">🗑️ Clear History</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        © 2026 HawkEye | Developed by Devansh
+    </div>
+</div>
+</body>
+</html>

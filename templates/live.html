@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HawkEye | Live Log Replay</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+  <div class="hero fade-in-up">
+    <div class="logo-area">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="HawkEye Logo">
+    </div>
+    <h1>🛰 HawkEye Live Log Replay</h1>
+    <p class="subtitle">Streaming playback of every parsed event, color-coded by severity</p>
+  </div>
+
+  <div class="live-toolbar analysis fade-in-up">
+    <div class="live-stat">
+      <span class="live-stat-label">File</span>
+      <span class="live-stat-value">{{ filename }}</span>
+    </div>
+    <div class="live-stat">
+      <span class="live-stat-label">Log Type</span>
+      <span class="live-stat-value">
+        {% if log_type == 'web_access' %}🌐 Web Access{% elif log_type == 'auth' %}🔐 Auth Log{% else %}📄 Generic{% endif %}
+      </span>
+    </div>
+    <div class="live-stat">
+      <span class="live-stat-label">Risk</span>
+      <span class="live-stat-value {{ risk_class }}">{{ risk }}</span>
+    </div>
+    <div class="live-stat">
+      <span class="live-stat-label">Threat Score</span>
+      <span class="live-stat-value">{{ threat_score }}/100</span>
+    </div>
+    <div class="live-stat">
+      <span class="live-stat-label">Alerts Raised</span>
+      <span class="live-stat-value">{{ alert_count }}</span>
+    </div>
+  </div>
+
+  {% if truncated %}
+  <div class="flash-wrap">
+    <div class="flash flash-success">
+      <span class="flash-icon">ℹ️</span>
+      <span>This file has more events than the live replay window shows. Displaying the first {{ replay_events|length }} of {{ total_events }} parsed events.</span>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="analysis fade-in-up">
+    <div class="live-controls">
+      <button id="playBtn" class="download-btn">▶ Play</button>
+      <button id="pauseBtn" class="download-btn secondary-btn">⏸ Pause</button>
+      <button id="restartBtn" class="download-btn secondary-btn">⏮ Restart</button>
+      <label class="live-speed-label">
+        Speed
+        <select id="speedSelect">
+          <option value="400">1x</option>
+          <option value="150" selected>3x</option>
+          <option value="40">10x</option>
+          <option value="5">Instant</option>
+        </select>
+      </label>
+      <div class="live-progress-wrap">
+        <div class="live-progress-bar" id="liveProgressBar"></div>
+      </div>
+      <span id="liveCounter" class="live-counter">0 / {{ replay_events|length }}</span>
+    </div>
+
+    <div class="live-counters">
+      <div class="live-counter-chip info"><span id="cInfo">0</span> Info</div>
+      <div class="live-counter-chip success"><span id="cSuccess">0</span> Success</div>
+      <div class="live-counter-chip medium"><span id="cMedium">0</span> Medium</div>
+      <div class="live-counter-chip high"><span id="cHigh">0</span> High</div>
+      <div class="live-counter-chip critical"><span id="cCritical">0</span> Critical</div>
+      <div class="live-counter-chip flagged"><span id="cFlagged">0</span> Flagged Actor</div>
+    </div>
+
+    <div id="terminal" class="live-terminal"></div>
+  </div>
+
+  <div class="action-bar">
+      <a href="{{ url_for('view_past_report', report_id=report_id) }}" class="download-btn secondary-btn">📄 Back to Report</a>
+      <a href="/" class="download-btn secondary-btn">🔄 Analyze Another Log</a>
+  </div>
+
+  <div class="footer">
+    © 2026 HawkEye | Developed by Devansh
+  </div>
+</div>
+
+<script>
+const EVENTS = {{ replay_events | tojson }};
+const terminal = document.getElementById('terminal');
+const counterEl = document.getElementById('liveCounter');
+const progressBar = document.getElementById('liveProgressBar');
+const speedSelect = document.getElementById('speedSelect');
+
+const counts = { info: 0, success: 0, medium: 0, high: 0, critical: 0, flagged: 0 };
+const countEls = {
+  info: document.getElementById('cInfo'),
+  success: document.getElementById('cSuccess'),
+  medium: document.getElementById('cMedium'),
+  high: document.getElementById('cHigh'),
+  critical: document.getElementById('cCritical'),
+  flagged: document.getElementById('cFlagged'),
+};
+
+let idx = 0;
+let timer = null;
+let playing = false;
+
+const ICONS = {
+  info: 'ℹ️', success: '✅', medium: '⚠️', high: '🟠', critical: '🚨', flagged: '🎯'
+};
+
+function renderNext() {
+  if (idx >= EVENTS.length) {
+    playing = false;
+    clearInterval(timer);
+    return;
+  }
+  const e = EVENTS[idx];
+  const row = document.createElement('div');
+  row.className = 'live-line live-line-' + e.severity + ' live-line-enter';
+  row.innerHTML =
+    '<span class="live-line-icon">' + (ICONS[e.severity] || 'ℹ️') + '</span>' +
+    '<span class="live-line-time">' + e.time + '</span>' +
+    '<span class="live-line-ip">' + e.ip + '</span>' +
+    '<span class="live-line-user">' + e.user + '</span>' +
+    '<span class="live-line-type">' + e.type + '</span>' +
+    '<span class="live-line-raw">' + e.line.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>';
+  terminal.appendChild(row);
+  terminal.scrollTop = terminal.scrollHeight;
+
+  if (counts[e.severity] !== undefined) {
+    counts[e.severity]++;
+    countEls[e.severity].textContent = counts[e.severity];
+  }
+
+  idx++;
+  counterEl.textContent = idx + ' / ' + EVENTS.length;
+  progressBar.style.width = (EVENTS.length ? (idx / EVENTS.length * 100) : 100) + '%';
+}
+
+function play() {
+  if (playing || EVENTS.length === 0) return;
+  playing = true;
+  const speed = parseInt(speedSelect.value, 10);
+  timer = setInterval(renderNext, speed);
+}
+
+function pause() {
+  playing = false;
+  clearInterval(timer);
+}
+
+function restart() {
+  pause();
+  idx = 0;
+  terminal.innerHTML = '';
+  Object.keys(counts).forEach(k => { counts[k] = 0; countEls[k].textContent = '0'; });
+  counterEl.textContent = '0 / ' + EVENTS.length;
+  progressBar.style.width = '0%';
+}
+
+document.getElementById('playBtn').addEventListener('click', play);
+document.getElementById('pauseBtn').addEventListener('click', pause);
+document.getElementById('restartBtn').addEventListener('click', restart);
+speedSelect.addEventListener('change', () => { if (playing) { pause(); play(); } });
+
+// Auto-start the replay shortly after load for the "live" feel.
+setTimeout(play, 500);
+</script>
+
+</body>
+</html>

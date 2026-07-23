@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HawkEye | Security Analysis Report</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+    <div class="logo-area">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="logo" alt="HawkEye Logo">
+    </div>
+    <h1>🛡 HawkEye Security Operations Center</h1>
+    <p class="subtitle">
+
+Real-Time Threat Detection • Mini SIEM • MITRE ATT&CK • IOC Intelligence
+
+</p>
+</div>
+
+{% if archived %}
+<div class="flash-wrap">
+    <div class="flash flash-success">
+        <span class="flash-icon">🗄️</span>
+        <span>Viewing an archived summary from scan history. Re-upload the original log for the full dashboard and PDF/CSV export.</span>
+    </div>
+</div>
+{% endif %}
+
+<div class="analysis">
+    <h2>📄 Analysis Information</h2>
+    <table>
+        <tr><th>File Name</th><td>{{ filename }}</td></tr>
+        {% if log_type is defined %}
+        <tr><th>Detected Log Type</th><td>
+            {% if log_type == 'web_access' %}🌐 Web Access Log (Apache/Nginx)
+            {% elif log_type == 'auth' %}🔐 Linux Authentication Log
+            {% else %}📄 Generic / Unstructured
+            {% endif %}
+        </td></tr>
+        {% endif %}
+        <tr><th>Analysis Time</th><td>{{ analysis_time }}</td></tr>
+        <tr><th>Top Suspicious IP</th><td>{{ top_ip }}</td></tr>
+        <tr><th>Highest Attempts (single IP)</th><td>{{ attempts }}</td></tr>
+        <tr><th>Unique Source IPs</th><td>{{ unique_ips }}</td></tr>
+        <tr><th>Unique Usernames Targeted</th><td>{{ unique_users }}</td></tr>
+    </table>
+</div>
+<div class="analysis">
+
+<h2>🚀 Executive Security Summary</h2>
+
+<div class="cards">
+
+<div class="card">
+<span class="badge critical">🚨 Threat</span>
+<h3>Threat Score</h3>
+<h1>{{ threat_score }}</h1>
+</div>
+
+<div class="card">
+<span class="badge info">⚠️ Risk</span>
+<h3>Risk Level</h3>
+<h1>{{ risk }}</h1>
+</div>
+
+<div class="card">
+<span class="badge success">🌍 Attacker</span>
+<h3>Top IP</h3>
+<h1 style="font-size:22px;">{{ top_ip }}</h1>
+</div>
+
+<div class="card">
+<span class="badge info">📈 Events</span>
+<h3>Total Events</h3>
+<h1>{{ total }}</h1>
+</div>
+
+</div>
+
+</div>
+<div class="cards">
+    <div class="card failed">
+        <h3>Failed Authentication</h3>
+        <h1>{{ failed }}</h1>
+    </div>
+    <div class="card success">
+        <h3>Successful Authentication</h3>
+        <h1>{{ success }}</h1>
+    </div>
+    <div class="card total">
+        <h3>Total Events</h3>
+        <h1>{{ total }}</h1>
+    </div>
+</div>
+
+<div class="analysis">
+    <h2>🚨 Threat Assessment</h2>
+    <p><strong>Risk Level :</strong> <span class="{{ risk_class }}">{{ risk }}</span></p>
+    <p><strong>Brute Force :</strong> {{ brute_force }}</p>
+
+    <div class="score-box">
+        <div class="score-title">
+            <span>Threat Score</span>
+            <span>{{ threat_score }}/100</span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" style="width: {{ threat_score }}%;"></div>
+        </div>
+    </div>
+
+    {% if siem_threat_score is defined %}
+    <div class="score-box">
+        <div class="score-title">
+            <span>SIEM Threat Score <span class="chart-caption" style="margin:0;">(driven by detected alerts/incidents)</span></span>
+            <span>{{ siem_threat_score }}/100 — <span class="{{ siem_risk_class }}">{{ siem_risk }}</span></span>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" style="width: {{ siem_threat_score }}%;"></div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if alerts %}
+
+<div class="analysis">
+
+<h2>🎯 MITRE ATT&CK Detection</h2>
+
+<div class="mitre-grid">
+
+{% for a in alerts %}
+
+<div class="mitre-card">
+
+<div class="mitre-header">
+
+<span class="mitre-id">
+
+{{ a.mitre.technique_id }}
+
+</span>
+
+<span class="severity {{a.severity|lower}}">
+
+{{ a.severity }}
+
+</span>
+
+</div>
+
+<h3>
+
+{{ a.rule }}
+
+</h3>
+
+<p>
+
+{{ a.mitre.technique_name }}
+
+</p>
+
+<div class="mitre-footer">
+
+<div>
+
+Confidence
+
+<strong>{{a.confidence}}%</strong>
+
+</div>
+
+<div>
+
+Risk
+
+<strong>{{a.risk_score}}</strong>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+
+{% if incidents %}
+
+<div class="analysis">
+
+<h2>⚡ Attack Correlation Timeline</h2>
+
+<div class="timeline">
+
+{% for inc in incidents %}
+
+<div class="timeline-card">
+
+<div class="timeline-dot {{ inc.severity|lower }}"></div>
+
+<div class="timeline-content">
+
+<h3>{{ inc.rule_chain }}</h3>
+
+<p><b>{{ inc.correlated_by }}</b> : {{ inc.correlated_value }}</p>
+
+<p>Risk Score : <strong>{{ inc.risk_score }}</strong></p>
+
+<span class="severity {{ inc.severity|lower }}">{{ inc.severity }}</span>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% if ioc_flat %}
+
+<div class="analysis">
+
+<h2>🎯 Indicators of Compromise (IOC)</h2>
+
+<div class="ioc-grid">
+
+{% for row in ioc_flat %}
+
+<div class="ioc-card">
+
+<span class="ioc-type">
+
+{{ row.type }}
+
+</span>
+
+<h3>{{ row.value }}</h3>
+
+<div class="ioc-stats">
+
+<div>
+
+Attempts
+
+<strong>{{ row.attempts }}</strong>
+
+</div>
+
+<div>
+
+Failed
+
+<strong>{{ row.failed_attempts }}</strong>
+
+</div>
+
+</div>
+
+<hr>
+
+<p>
+
+<b>First Seen</b><br>
+
+{{ row.first_seen | format_dt }}
+
+</p>
+
+<p>
+
+<b>Last Seen</b><br>
+
+{{ row.last_seen | format_dt }}
+
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+<div class="analysis">
+    <h2>🧠 HawkEye AI Analysis</h2>
+    <p>{{ insight }}</p>
+</div>
+
+<div class="analysis">
+    <h2>📈 Authentication Analytics Dashboard</h2>
+    <canvas id="authChart"></canvas>
+</div>
+
+{% if timeline %}
+<div class="analysis">
+    <h2>⏱️ Attack Timeline</h2>
+    <p class="chart-caption">Failed authentication attempts grouped by hour.</p>
+    <canvas id="timelineChart"></canvas>
+</div>
+{% endif %}
+
+<div class="analysis">
+    <h2>🌍 Top Attacking IPs</h2>
+    {% if top_ips %}
+    <table>
+        <tr>
+            <th>#</th>
+            <th>IP Address</th>
+            <th>Location</th>
+            <th>ISP / Org</th>
+            <th>Failed Attempts</th>
+            <th>Successful Logins</th>
+        </tr>
+        {% for item in top_ips %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.ip }}</td>
+            <td>{{ item.location or item.country or 'Unknown' }}</td>
+            <td>{{ item.isp or 'Unknown' }}</td>
+            <td>{{ item.failed }}</td>
+            <td>{{ item.success }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p class="chart-caption">Geolocation is provided on a best-effort basis via a free public lookup service and may be approximate or unavailable for some IPs.</p>
+    {% else %}
+    <p>No suspicious IP activity recorded.</p>
+    {% endif %}
+</div>
+
+<div class="analysis">
+    <h2>🌐 Top Requested URLs</h2>
+    
+    {% if top_urls %}
+    <table>
+        <tr>
+            <th>#</th>
+            <th>URL</th>
+            <th>Hits</th>
+        </tr>
+        
+        {% for item in top_urls %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.url }}</td>
+            <td>{{ item.hits }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    {% else %}
+    
+    <p>No Apache URL activity detected.</p>
+    
+    {% endif %}
+</div>
+<div class="analysis">
+    <h2>👥 Targeted User Accounts</h2>
+    {% if top_users %}
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Failed Attempts</th>
+        </tr>
+        {% for item in top_users %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.username }}</td>
+            <td>{{ item.attempts }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No targeted usernames recorded.</p>
+    {% endif %}
+</div>
+
+<div class="analysis">
+    
+    <h2>📊 HTTP Status Codes</h2>
+    
+    {% if status_distribution %}
+    
+    <table>
+        
+        <tr>
+            
+<th>Status Code</th>
+
+<th>Requests</th>
+
+</tr>
+
+{% for code,count in status_distribution.items() %}
+
+<tr>
+    
+    <td>{{ code }}</td>
+    
+    <td>{{ count }}</td>
+    
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No Apache Status Codes Available.</p>
+
+{% endif %}
+
+</div>
+<div class="analysis">
+    <h2>📋 Authentication Summary</h2>
+    <table>
+        <tr><th>Authentication Type</th><th>Count</th></tr>
+        <tr><td>Failed Authentication</td><td>{{ failed }}</td></tr>
+        <tr><td>Successful Authentication</td><td>{{ success }}</td></tr>
+        <tr><td>Total Authentication Events</td><td>{{ total }}</td></tr>
+        <tr><td>Top Suspicious IP</td><td>{{ top_ip }}</td></tr>
+        <tr><td>Highest Attempts</td><td>{{ attempts }}</td></tr>
+        <tr><td>Risk Level</td><td><span class="{{ risk_class }}">{{ risk }}</span></td></tr>
+    </table>
+</div>
+
+{% if unique_playbooks %}
+<div class="analysis">
+    <h2>🛡 Incident Response Recommendations</h2>
+    {% for pb in unique_playbooks %}
+    <div class="playbook-card">
+        <h3>{{ pb.rule }} <span class="chart-caption" style="margin:0;">({{ pb.mitre.technique_id }})</span></h3>
+        <p><strong>Description:</strong> {{ pb.ir.description }}</p>
+        <p><strong>Root Cause:</strong> {{ pb.ir.root_cause }}</p>
+        <p><strong>Business Impact:</strong> {{ pb.ir.business_impact }}</p>
+        {% if pb.ir.mitigation_commands %}
+        <p><strong>Mitigation Commands:</strong></p>
+        <pre class="code-block">{% for cmd in pb.ir.mitigation_commands %}{{ cmd }}
+{% endfor %}</pre>
+        {% endif %}
+        {% if pb.ir.recovery_steps %}
+        <p><strong>Recovery Steps:</strong></p>
+        <ul>{% for step in pb.ir.recovery_steps %}<li>{{ step }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if pb.ir.prevention %}
+        <p><strong>Prevention:</strong></p>
+        <ul>{% for step in pb.ir.prevention %}<li>{{ step }}</li>{% endfor %}</ul>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if recommended_controls %}
+<div class="analysis">
+    <h2>✅ Recommended Security Controls</h2>
+    <ul>
+        {% for control in recommended_controls %}
+        <li>{{ control }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="action-bar">
+    <a href="/" class="download-btn secondary-btn">🔄 Analyze Another Log</a>
+    <a href="{{ url_for('view_history') }}" class="download-btn secondary-btn">🕓 View Scan History</a>
+    <a href="{{ url_for('assistant_page', report_id=report_id) }}" class="download-btn secondary-btn ai-btn">
+        🤖 HawkEye AI Copilot
+    </a>
+    {% if not archived %}
+    <a href="{{ url_for('live_replay', report_id=report_id) }}" class="download-btn secondary-btn live-btn">🛰 Live Log Replay</a>
+    <a href="{{ url_for('download_pdf', report_id=report_id) }}" class="download-btn">⬇️ Download PDF Report</a>
+    <a href="{{ url_for('download_csv', report_id=report_id) }}" class="download-btn csv-btn">⬇️ Download CSV Export</a>
+    <a href="{{ url_for('download_html', report_id=report_id) }}" class="download-btn secondary-btn">⬇️ Download HTML Report</a>
+    <button onclick="window.print()">🖨 Print Report</button>
+    {% endif %}
+</div>
+
+<div class="footer">
+    © 2026 HawkEye | Developed by Devansh
+</div>
+</div>
+
+<script>
+const ctx = document.getElementById("authChart");
+new Chart(ctx, {
+    type: "pie",
+    data: {
+        labels: ["Failed Authentication", "Successful Authentication"],
+        datasets: [{
+            data: [{{ failed }}, {{ success }}],
+            backgroundColor: ["#dc2626", "#16a34a"],
+            borderColor: ["#ffffff", "#ffffff"],
+            borderWidth: 2,
+            hoverOffset: 12
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: "bottom", labels: { color: "#ffffff", font: { size: 15 } } },
+            title: { display: true, text: "Authentication Distribution", color: "#ffffff", font: { size: 20 } }
+        }
+    }
+});
+
+{% if timeline %}
+const timelineCtx = document.getElementById("timelineChart");
+new Chart(timelineCtx, {
+    type: "line",
+    data: {
+        labels: [{% for item in timeline %}"{{ item.time }}"{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            label: "Failed Attempts",
+            data: [
+{% for item in timeline %}
+{{ item.count }}{{ "," if not loop.last }}
+{% endfor %}
+],
+            borderColor: "#38bdf8",
+            backgroundColor: "rgba(56,189,248,0.25)",
+            fill: true,
+            tension: 0.3,
+            pointBackgroundColor: "#dc2626",
+            pointRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: "bottom", labels: { color: "#1e293b", font: { size: 14 } } },
+            title: { display: true, text: "Failed Attempts Over Time", color: "#1e293b", font: { size: 20 } }
+        },
+        scales: {
+            x: { ticks: { color: "#1e293b" } },
+            y: { beginAtZero: true, ticks: { color: "#1e293b", precision: 0 } }
+        }
+    }
+});
+{% endif %}
+</script>
+
+</body>
+</html>

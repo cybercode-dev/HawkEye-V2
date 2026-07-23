@@ -1,0 +1,4 @@
+timestamp,ip,event,status
+2026-07-23 10:00:01,203.0.113.10,failed_login,401
+2026-07-23 10:00:05,203.0.113.10,failed_login,401
+2026-07-23 10:00:10,192.168.1.5,success_login,200

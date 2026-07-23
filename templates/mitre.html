@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HawkEye | MITRE ATT&CK Explorer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="logo-area">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HawkEye Logo" class="logo">
+        </div>
+        <h1>🗺️ MITRE ATT&CK Explorer</h1>
+        <p class="subtitle">Every technique HawkEye's detection engine can map to</p>
+    </div>
+
+    {% for t in techniques %}
+    <div class="playbook-card">
+        <h3>{{ t.technique_id }} — {{ t.technique_name }}</h3>
+        <p><strong>Tactic:</strong> {{ t.tactic }}</p>
+        <p><strong>Detected by rule:</strong> {{ t.rule_key }}</p>
+        <p>{{ t.description }}</p>
+        <p><a href="{{ t.reference }}" target="_blank" rel="noopener">View on attack.mitre.org →</a></p>
+    </div>
+    {% endfor %}
+
+    <div class="action-bar">
+        <a href="/" class="download-btn secondary-btn">🔄 Analyze a Log</a>
+        <a href="{{ url_for('view_history') }}" class="download-btn secondary-btn">🕓 Scan History</a>
+        <a href="{{ url_for('assistant_page') }}" class="download-btn secondary-btn">🤖 AI Assistant</a>
+    </div>
+
+    <div class="footer">
+        © 2026 HawkEye | Developed by Devansh
+    </div>
+</div>
+</body>
+</html>

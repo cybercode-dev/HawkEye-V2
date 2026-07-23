@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HawkEye | Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="hero">
+        <div class="logo-area">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HawkEye Logo" class="logo">
+        </div>
+        <h1>⚙️ Settings</h1>
+        <p class="subtitle">Current HawkEye configuration</p>
+    </div>
+
+    <div class="analysis">
+        <h2>System Configuration</h2>
+        <table>
+            <tr><th>Setting</th><th>Value</th></tr>
+            <tr><td>Allowed file extensions</td><td>{{ info.allowed_extensions | join(', ') }}</td></tr>
+            <tr><td>Max upload size</td><td>{{ info.max_upload_mb }} MB</td></tr>
+            <tr><td>AI Assistant LLM enhancement</td>
+                <td>{{ '✅ Enabled (ANTHROPIC_API_KEY set)' if info.ai_assistant_llm_enabled else '⚪ Rule-based only (set ANTHROPIC_API_KEY to enable free-form LLM answers)' }}</td></tr>
+            <tr><td>History database</td><td>{{ info.history_db_path }}</td></tr>
+            <tr><td>Total scans stored</td><td>{{ info.total_scans }}</td></tr>
+            <tr><td>Debug mode</td><td>{{ info.debug_mode }}</td></tr>
+        </table>
+        <p class="chart-caption" style="margin-top:16px;">
+            To change these, set the corresponding environment variables (e.g. <code>HAWKEYE_SECRET_KEY</code>,
+            <code>HAWKEYE_DEBUG</code>, <code>ANTHROPIC_API_KEY</code>) before starting the app.
+        </p>
+    </div>
+
+    <div class="action-bar">
+        <a href="/" class="download-btn secondary-btn">🔄 Analyze a Log</a>
+        <a href="{{ url_for('view_history') }}" class="download-btn secondary-btn">🕓 Scan History</a>
+    </div>
+
+    <div class="footer">
+        © 2026 HawkEye | Developed by Devansh
+    </div>
+</div>
+</body>
+</html>

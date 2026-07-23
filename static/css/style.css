@@ -1,0 +1,1805 @@
+/* ===========================
+   HawkEye Premium CSS
+   Part 1
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    background:
+    radial-gradient(circle at top,#1e3a8a 0%,#0f172a 45%,#020617 100%);
+    color:#ffffff;
+    min-height:100vh;
+}
+
+.container{
+    width:92%;
+    max-width:1350px;
+    margin:35px auto;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.logo-area{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.logo{
+    width:140px;
+    height:auto;
+    filter:
+    drop-shadow(0 0 18px rgba(59,130,246,.35));
+    transition:.35s;
+}
+
+.logo:hover{
+
+    transform:scale(1.05);
+
+}
+
+.hero h1{
+
+    color:#38bdf8;
+
+    font-size:56px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+    letter-spacing:1px;
+
+}
+
+.subtitle{
+
+    color:#cbd5e1;
+
+    font-size:23px;
+
+    margin-bottom:15px;
+
+}
+
+.description{
+
+    width:75%;
+
+    margin:auto;
+
+    color:#94a3b8;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+}
+
+.upload-card{
+
+    margin:45px auto;
+
+    max-width:780px;
+
+    background:rgba(30,41,59,.75);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:40px;
+
+    text-align:center;
+
+    box-shadow:
+
+    0 20px 45px rgba(0,0,0,.45);
+
+}
+
+.upload-card h2{
+
+    color:#38bdf8;
+
+    margin-bottom:15px;
+
+}
+
+.upload-text{
+
+    color:#cbd5e1;
+
+    margin-bottom:30px;
+
+}
+
+input[type=file]{
+
+    width:100%;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border:2px dashed #3b82f6;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+input[type=file]:hover{
+
+    border-color:#38bdf8;
+
+    background:#172554;
+
+}
+
+button{
+
+    margin-top:25px;
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(90deg,#2563eb,#0ea5e9);
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(14,165,233,.35);
+
+}
+
+button:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}/* ===========================
+   Flash Messages
+=========================== */
+
+.flash-wrap{
+
+    max-width:780px;
+
+    margin:0 auto 25px;
+
+}
+
+.flash{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:16px 20px;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+    font-size:15px;
+
+    line-height:1.5;
+
+    animation:fadeUp .4s ease;
+
+}
+
+.flash-icon{
+
+    font-size:18px;
+
+    flex-shrink:0;
+
+}
+
+.flash-error{
+
+    background:rgba(220,38,38,.15);
+
+    border:1px solid rgba(220,38,38,.45);
+
+    color:#fecaca;
+
+}
+
+.flash-success{
+
+    background:rgba(22,163,74,.15);
+
+    border:1px solid rgba(22,163,74,.45);
+
+    color:#bbf7d0;
+
+}
+
+
+/* ===========================
+   File Input Hint
+=========================== */
+
+.file-hint{
+
+    margin-top:12px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    transition:.25s;
+
+}
+
+.file-hint-active{
+
+    color:#38bdf8;
+
+    font-weight:600;
+
+}
+
+
+/* ===========================
+   Feature Section
+=========================== */
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+    margin-top:50px;
+
+}
+
+.feature{
+
+    background:rgba(30,41,59,.80);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:28px;
+
+    transition:.35s;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.feature:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#38bdf8;
+
+    box-shadow:0 18px 35px rgba(59,130,246,.25);
+
+}
+
+.feature h3{
+
+    color:#38bdf8;
+
+    margin-bottom:15px;
+
+    font-size:22px;
+
+}
+
+.feature p{
+
+    color:#cbd5e1;
+
+    line-height:1.7;
+
+}
+
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+    gap:22px;
+
+    margin:35px 0;
+
+}
+
+.card{
+
+    border-radius:22px;
+
+    padding:28px;
+
+    text-align:center;
+
+    color:#ffffff;
+
+    transition:.35s;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.30);
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.failed{
+
+    background:linear-gradient(135deg,#dc2626,#991b1b);
+
+}
+
+.success{
+
+    background:linear-gradient(135deg,#16a34a,#166534);
+
+}
+
+.total{
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+}
+
+.card h3{
+
+    font-size:20px;
+
+    margin-bottom:18px;
+
+    font-weight:600;
+
+}
+
+.card h1{
+
+    font-size:48px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+}
+
+
+/* ===========================
+   Analysis Box
+=========================== */
+
+.analysis{
+
+    margin-top:28px;
+
+    background:rgba(30,41,59,.82);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.30);
+
+}
+
+.analysis h2{
+
+    color:#38bdf8;
+
+    margin-bottom:18px;
+
+    font-size:28px;
+
+}
+
+.analysis p{
+
+    color:#e2e8f0;
+
+    margin:12px 0;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+}
+
+.high{
+
+    color:#ef4444;
+
+    font-weight:700;
+
+}
+
+.critical{
+
+    color:#ffffff;
+
+    background:#dc2626;
+
+    padding:2px 10px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+}
+
+.medium{
+
+    color:#facc15;
+
+    font-weight:700;
+
+}
+
+.low{
+
+    color:#22c55e;
+
+    font-weight:700;
+
+}/* ===========================
+   Charts
+=========================== */
+
+canvas{
+
+    width:100% !important;
+
+    max-width:700px;
+
+    margin:30px auto;
+
+    display:block;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+}
+
+
+/* ===========================
+   Threat Score
+=========================== */
+
+.score-box{
+
+    margin-top:25px;
+
+}
+
+.score-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-size:18px;
+
+    color:#ffffff;
+
+}
+
+.progress{
+
+    width:100%;
+
+    height:18px;
+
+    background:#334155;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    border-radius:50px;
+
+    background:linear-gradient(90deg,#22c55e,#eab308,#ef4444);
+
+    transition:width .8s ease;
+
+}
+
+
+/* ===========================
+   Statistics Table
+=========================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:25px;
+
+    overflow:hidden;
+
+    border-radius:15px;
+
+}
+
+th{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+    padding:16px;
+
+    font-size:17px;
+
+}
+
+td{
+
+    background:#1e293b;
+
+    color:#e2e8f0;
+
+    padding:16px;
+
+    border-bottom:1px solid #334155;
+
+    text-align:center;
+
+}
+
+tr:hover td{
+
+    background:#273549;
+
+}
+
+
+/* ===========================
+   Links & Buttons
+=========================== */
+
+a{
+
+    display:inline-block;
+
+    margin-top:30px;
+
+    color:#38bdf8;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+a:hover{
+
+    color:#ffffff;
+
+}
+
+.download-btn{
+
+    background:#16a34a;
+
+    color:#ffffff;
+
+    padding:14px 25px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    transition:.3s;
+
+}
+
+.download-btn:hover{
+
+    background:#15803d;
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ===========================
+   Action Bar (Result Page)
+=========================== */
+
+.action-bar{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+
+}
+
+.action-bar .download-btn{
+
+    margin-top:0;
+
+}
+
+.action-bar button{
+
+    margin-top:0;
+
+}
+
+.secondary-btn{
+
+    background:#334155 !important;
+
+}
+
+.secondary-btn:hover{
+
+    background:#1e293b !important;
+
+}
+
+.csv-btn{
+
+    background:#0ea5e9 !important;
+
+}
+
+.csv-btn:hover{
+
+    background:#0284c7 !important;
+
+}
+
+.chart-caption{
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+    margin-bottom:15px;
+
+}
+
+
+/* ===========================
+   Incident Response Playbooks
+=========================== */
+
+.playbook-card{
+
+    background:rgba(15,23,42,.6);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+    padding:22px;
+
+    margin-bottom:18px;
+
+}
+
+.playbook-card h3{
+
+    color:#38bdf8;
+
+    margin-bottom:12px;
+
+    font-size:19px;
+
+}
+
+.playbook-card p{
+
+    color:#e2e8f0;
+
+    margin:10px 0 4px;
+
+    line-height:1.6;
+
+}
+
+.playbook-card ul{
+
+    margin:6px 0 10px 22px;
+
+    color:#cbd5e1;
+
+    line-height:1.7;
+
+}
+
+.code-block{
+
+    background:#020617;
+
+    color:#38bdf8;
+
+    padding:14px 18px;
+
+    border-radius:10px;
+
+    font-family:"Courier New",monospace;
+
+    font-size:13.5px;
+
+    overflow-x:auto;
+
+    margin:8px 0 14px;
+
+    border:1px solid rgba(56,189,248,.25);
+
+    white-space:pre-wrap;
+
+}
+
+
+/* ===========================
+   AI Assistant Chat
+=========================== */
+
+.chat-bubble{
+max-width:80%;
+padding:15px 18px;
+border-radius:16px;
+line-height:1.7;
+font-size:15px;
+word-wrap:break-word;
+animation:fadeIn .25s ease;
+}
+
+.chat-user{
+align-self:flex-end;
+background:linear-gradient(90deg,#2563eb,#06b6d4);
+color:white;
+border-bottom-right-radius:6px;
+}
+
+.chat-bot{
+align-self:flex-start;
+background:#1e293b;
+border:1px solid rgba(59,130,246,.35);
+color:#fff;
+border-bottom-left-radius:6px;
+}
+
+.chat-bot-loading{
+align-self:flex-start;
+background:#1e293b;
+color:#94a3b8;
+font-style:italic;
+padding:14px 18px;
+border-radius:14px;
+animation:pulse 1s infinite;
+}
+
+
+/* ===========================
+   Footer
+=========================== */
+
+.footer{
+
+    margin-top:50px;
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:15px;
+
+    padding:25px 0;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+
+/* ===========================
+   Smooth Animation
+=========================== */
+
+.card,
+.feature,
+.analysis,
+.upload-card{
+
+    animation:fadeUp .7s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ===========================
+   Scrollbar
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#0f172a;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#3b82f6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#2563eb;
+
+}
+
+
+/* ===========================
+   Mobile Responsive
+=========================== */
+
+@media(max-width:992px){
+
+    .container{
+
+        width:95%;
+
+    }
+
+    .description{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+
+        font-size:42px;
+
+    }
+
+    .subtitle{
+
+        font-size:18px;
+
+    }
+
+    .description{
+
+        font-size:15px;
+
+    }
+
+    .logo{
+
+        width:95px;
+
+    }
+
+    .upload-card{
+
+        padding:25px;
+
+    }
+
+    .card h1{
+
+        font-size:36px;
+
+    }
+
+    .analysis h2{
+
+        font-size:22px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .hero h1{
+
+        font-size:34px;
+
+    }
+
+    .logo{
+
+        width:80px;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
+
+    .action-bar{
+
+        flex-direction:column;
+
+    }
+
+    .action-bar a,
+
+    .action-bar button{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    table{
+
+        font-size:13px;
+
+    }
+
+    th,td{
+
+        padding:10px;
+
+    }
+
+}
+/* ===== SOC Dashboard Upgrade ===== */
+
+.analysis{
+background:#0f172a;
+border:1px solid rgba(59,130,246,.25);
+border-radius:20px;
+padding:25px;
+margin:30px 0;
+box-shadow:0 10px 35px rgba(0,0,0,.45);
+transition:.3s;
+}
+
+.analysis:hover{
+transform:translateY(-4px);
+border-color:#38bdf8;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin:30px 0;
+}
+
+.card{
+border-radius:18px;
+padding:25px;
+background:linear-gradient(135deg,#111827,#1e293b);
+border:1px solid rgba(59,130,246,.2);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 30px rgba(14,165,233,.25);
+}
+
+.card h1{
+font-size:42px;
+margin-top:15px;
+color:#38bdf8;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+overflow:hidden;
+border-radius:15px;
+}
+
+th{
+background:#2563eb;
+color:white;
+padding:14px;
+}
+
+td{
+padding:13px;
+background:#111827;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+tr:hover td{
+background:#172554;
+}
+
+canvas{
+background:#fff;
+border-radius:15px;
+padding:10px;
+}
+
+h2{
+display:flex;
+align-items:center;
+gap:10px;
+}
+.badge{
+
+display:inline-block;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:13px;
+
+font-weight:600;
+
+margin-bottom:15px;
+
+}
+
+.critical{
+
+background:#7f1d1d;
+
+color:#fecaca;
+
+}
+
+.success{
+
+background:#14532d;
+
+color:#bbf7d0;
+
+}
+
+.info{
+
+background:#1e3a8a;
+
+color:#bfdbfe;
+
+}
+.mitre-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.mitre-card{
+
+background:#111827;
+
+border-radius:18px;
+
+padding:22px;
+
+border:1px solid rgba(59,130,246,.25);
+
+transition:.3s;
+
+}
+
+.mitre-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 15px 35px rgba(0,0,0,.45);
+
+}
+
+.mitre-header{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-bottom:15px;
+
+}
+
+.mitre-id{
+
+background:#2563eb;
+
+padding:7px 14px;
+
+border-radius:25px;
+
+font-weight:bold;
+
+}
+
+.mitre-footer{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:18px;
+
+color:#94a3b8;
+
+}
+
+.severity{
+
+padding:5px 12px;
+
+border-radius:20px;
+
+font-size:12px;
+
+font-weight:bold;
+
+}
+
+.severity.critical{
+
+background:#7f1d1d;
+
+color:white;
+
+}
+
+.severity.high{
+
+background:#dc2626;
+
+color:white;
+
+}
+
+.severity.medium{
+
+background:#ca8a04;
+
+color:white;
+
+}
+
+.severity.low{
+
+background:#15803d;
+
+color:white;
+
+}
+.ioc-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.ioc-card{
+
+background:#111827;
+
+padding:22px;
+
+border-radius:18px;
+
+border:1px solid rgba(59,130,246,.2);
+
+transition:.3s;
+
+}
+
+.ioc-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 12px 28px rgba(0,0,0,.4);
+
+}
+
+.ioc-type{
+
+display:inline-block;
+
+background:#2563eb;
+
+padding:6px 14px;
+
+border-radius:20px;
+
+font-size:12px;
+
+margin-bottom:15px;
+
+}
+
+.ioc-card h3{
+
+margin-bottom:18px;
+
+color:#38bdf8;
+
+word-break:break-all;
+
+}
+
+.ioc-stats{
+
+display:flex;
+
+justify-content:space-between;
+
+margin:20px 0;
+
+}
+
+.ioc-card hr{
+
+border:0;
+
+height:1px;
+
+background:#334155;
+
+margin:15px 0;
+
+}
+.timeline{
+
+position:relative;
+
+margin-top:20px;
+
+}
+
+.timeline::before{
+
+content:"";
+
+position:absolute;
+
+left:18px;
+
+top:0;
+
+bottom:0;
+
+width:3px;
+
+background:#2563eb;
+
+}
+
+.timeline-card{
+
+display:flex;
+
+gap:20px;
+
+margin-bottom:25px;
+
+position:relative;
+
+}
+
+.timeline-dot{
+
+width:18px;
+
+height:18px;
+
+border-radius:50%;
+
+margin-top:6px;
+
+z-index:2;
+
+background:#38bdf8;
+
+}
+
+.timeline-content{
+
+flex:1;
+
+background:#111827;
+
+padding:20px;
+
+border-radius:15px;
+
+border:1px solid rgba(59,130,246,.25);
+
+}
+
+.timeline-content:hover{
+
+transform:translateX(5px);
+
+transition:.3s;
+
+}
+.ai-btn{
+
+display:block;
+
+margin:35px auto;
+
+width:320px;
+
+text-align:center;
+
+padding:18px;
+
+font-size:20px;
+
+font-weight:700;
+
+border-radius:15px;
+
+background:linear-gradient(90deg,#2563eb,#06b6d4);
+
+color:white;
+
+text-decoration:none;
+
+box-shadow:0 0 25px rgba(56,189,248,.4);
+
+transition:.3s;
+
+}
+
+.ai-btn:hover{
+
+transform:scale(1.04);
+
+box-shadow:0 0 35px rgba(56,189,248,.7);
+
+}
+.chat-window{
+min-height:380px;
+max-height:520px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+.quick-prompts{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:15px;
+}
+
+.quick-prompts button{
+background:#1e293b;
+border:1px solid rgba(59,130,246,.35);
+color:white;
+padding:10px 15px;
+border-radius:25px;
+cursor:pointer;
+transition:.25s;
+}
+
+.quick-prompts button:hover{
+background:#2563eb;
+}
+.chat-input-row{
+display:flex;
+gap:12px;
+margin-top:18px;
+}
+.chat-input-box{
+flex:1;
+padding:14px 16px;
+background:#0f172a;
+color:#fff;
+border:1px solid rgba(59,130,246,.35);
+border-radius:12px;
+font-size:15px;
+transition:.3s;
+}
+
+.chat-input-box:focus{
+outline:none;
+border-color:#38bdf8;
+box-shadow:0 0 12px rgba(56,189,248,.35);
+}
+
+.ai-btn-small{
+background:linear-gradient(90deg,#2563eb,#06b6d4);
+color:white;
+border:none;
+padding:14px 24px;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.ai-btn-small:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 18px rgba(37,99,235,.35);
+}
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(8px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@keyframes pulse{
+
+0%{
+opacity:.5;
+}
+
+50%{
+opacity:1;
+}
+
+100%{
+opacity:.5;
+}
+
+}
+
+/* ===========================================================
+   HawkEye v2 — GUI Polish Pass
+   New: richer entrance animations, staggered card reveals,
+   hover glow, animated progress sheen, and Live Log Replay UI.
+   Purely additive — does not change any existing selector.
+=========================================================== */
+
+/* Staggered, springier entrance for existing card grids (no HTML changes
+   needed — targets the classes that already exist on every page). */
+.cards .card,
+.features .feature,
+.mitre-grid .mitre-card,
+.ioc-grid .ioc-card,
+.timeline .timeline-card,
+.playbook-card {
+    animation: hkFadeInUp .55s cubic-bezier(.22,1,.36,1) both;
+}
+.cards .card:nth-child(1), .features .feature:nth-child(1), .mitre-grid .mitre-card:nth-child(1), .ioc-grid .ioc-card:nth-child(1), .timeline .timeline-card:nth-child(1) { animation-delay: .03s; }
+.cards .card:nth-child(2), .features .feature:nth-child(2), .mitre-grid .mitre-card:nth-child(2), .ioc-grid .ioc-card:nth-child(2), .timeline .timeline-card:nth-child(2) { animation-delay: .09s; }
+.cards .card:nth-child(3), .features .feature:nth-child(3), .mitre-grid .mitre-card:nth-child(3), .ioc-grid .ioc-card:nth-child(3), .timeline .timeline-card:nth-child(3) { animation-delay: .15s; }
+.cards .card:nth-child(4), .features .feature:nth-child(4), .mitre-grid .mitre-card:nth-child(4), .ioc-grid .ioc-card:nth-child(4), .timeline .timeline-card:nth-child(4) { animation-delay: .21s; }
+.cards .card:nth-child(5), .features .feature:nth-child(5), .mitre-grid .mitre-card:nth-child(5) { animation-delay: .27s; }
+.cards .card:nth-child(6), .features .feature:nth-child(6), .mitre-grid .mitre-card:nth-child(6) { animation-delay: .33s; }
+
+@keyframes hkFadeInUp {
+    from { opacity: 0; transform: translateY(22px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Generic reveal class usable on any element (used by new templates). */
+.fade-in-up {
+    animation: hkFadeInUp .6s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Subtle glowing hover lift for every clickable card / button, without
+   overriding any existing hover transform already defined. */
+.card, .feature, .mitre-card, .ioc-card, .playbook-card, .timeline-card {
+    will-change: transform;
+}
+.download-btn, button, .action-bar a {
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.download-btn:hover, button:hover, .action-bar a:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+}
+
+/* Animated sheen sweeping across threat/SIEM progress bars. */
+.progress-bar {
+    position: relative;
+    overflow: hidden;
+}
+.progress-bar::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    animation: hkSheen 2.2s ease-in-out infinite;
+}
+@keyframes hkSheen {
+    0%   { left: -60%; }
+    100% { left: 120%; }
+}
+
+/* Gentle breathing glow on the hero logo, layered on top of the existing
+   hover scale (doesn't touch the existing .logo:hover rule). */
+.logo {
+    animation: hkLogoGlow 3.5s ease-in-out infinite;
+}
+@keyframes hkLogoGlow {
+    0%, 100% { filter: drop-shadow(0 0 18px rgba(59,130,246,.35)); }
+    50%      { filter: drop-shadow(0 0 30px rgba(56,189,248,.65)); }
+}
+
+/* Flash messages slide in instead of popping in instantly. */
+.flash {
+    animation: hkFadeInUp .4s ease both;
+}
+
+/* ===========================================================
+   Live Log Replay page
+=========================================================== */
+
+.live-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+}
+.live-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+.live-stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #94a3b8;
+}
+.live-stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e2e8f0;
+}
+
+.live-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+.live-speed-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+.live-speed-label select {
+    background: #0f172a;
+    color: #e2e8f0;
+    border: 1px solid rgba(59,130,246,.35);
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+.live-progress-wrap {
+    flex: 1;
+    min-width: 140px;
+    height: 10px;
+    background: rgba(148,163,184,.15);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.live-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #38bdf8, #6366f1);
+    border-radius: 6px;
+    transition: width .2s linear;
+}
+.live-counter {
+    color: #94a3b8;
+    font-size: 13px;
+    min-width: 90px;
+    text-align: right;
+}
+
+.live-counters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.live-counter-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    background: rgba(148,163,184,.12);
+    color: #cbd5e1;
+}
+.live-counter-chip span { margin-right: 6px; }
+.live-counter-chip.success  { background: rgba(34,197,94,.15);  color: #86efac; }
+.live-counter-chip.medium   { background: rgba(250,204,21,.15); color: #fde68a; }
+.live-counter-chip.high     { background: rgba(239,68,68,.15);  color: #fca5a5; }
+.live-counter-chip.critical { background: rgba(220,38,38,.25);  color: #fecaca; }
+.live-counter-chip.flagged  { background: rgba(56,189,248,.18); color: #bae6fd; }
+
+.live-terminal {
+    background: #05070d;
+    border: 1px solid rgba(59,130,246,.25);
+    border-radius: 14px;
+    padding: 16px;
+    height: 460px;
+    overflow-y: auto;
+    font-family: "Consolas","SFMono-Regular",Menlo,Monaco,monospace;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.live-line {
+    display: flex;
+    gap: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.live-line:hover {
+    background: rgba(148,163,184,.08);
+}
+.live-line-enter {
+    animation: hkLineIn .25s ease both;
+}
+@keyframes hkLineIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.live-line-icon { width: 20px; flex: none; }
+.live-line-time { color: #64748b; flex: none; width: 150px; }
+.live-line-ip   { color: #38bdf8; flex: none; width: 130px; font-weight: 600; }
+.live-line-user { color: #a78bfa; flex: none; width: 100px; }
+.live-line-type { color: #94a3b8; flex: none; width: 130px; text-transform: uppercase; font-size: 11px; }
+.live-line-raw  { color: #cbd5e1; overflow: hidden; text-overflow: ellipsis; }
+
+.live-line-info     { border-left: 3px solid #334155; }
+.live-line-success   { border-left: 3px solid #22c55e; }
+.live-line-medium    { border-left: 3px solid #facc15; }
+.live-line-high      { border-left: 3px solid #ef4444; }
+.live-line-critical  { border-left: 3px solid #dc2626; background: rgba(220,38,38,.08); }
+.live-line-flagged   { border-left: 3px solid #38bdf8; background: rgba(56,189,248,.06); }
+
+.live-btn {
+    background: linear-gradient(135deg, #6366f1, #38bdf8) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cards .card, .features .feature, .mitre-grid .mitre-card, .ioc-grid .ioc-card,
+    .timeline .timeline-card, .playbook-card, .fade-in-up, .flash, .logo, .progress-bar::after {
+        animation: none !important;
+    }
+}
